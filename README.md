@@ -1,71 +1,68 @@
-# reactive-highlights README
+# Reactive Highlights for Angular Signals & Vue Refs
 
-This is the README for your extension "reactive-highlights". After writing up a brief description, we recommend including the following sections.
+**Make your reactive state pop!**
+
+Reactive Highlights is a VS Code extension designed to instantly identify "Reactive" variables in your code. Whether you are using **Angular Signals** or **Vue.js Refs**, this extension "digs" into the type definitions of your variables and highlights them, ensuring you never miss a reactive dependency again.
+
+It goes beyond simple regex matching—it understands your code structure to highlight variables passed as arguments, class properties, or imported signals.
 
 ## Features
+*   **Framework Support**:
+    *   **Angular**
+    *   **Vue.js**
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Configuration
 
-For example if there is an image subfolder under your extension project workspace:
+Customize the look and feel of your reactive variables in VS Code settings (`Ctrl+,` -> search "Reactive Highlights"):
 
-\!\[feature X\]\(images/feature-x.png\)
+| Setting | Default | Description |
+| :--- | :--- | :--- |
+| `reactiveHighlights.color` | `#A020F0` (Purple) | Text color of the reactive variable. |
+| `reactiveHighlights.enableBackground` | `false` | Enable a background color for the highlight. |
+| `reactiveHighlights.backgroundColor` | `rgba(160, 32, 240, 0.2)` | The background color (if enabled). |
+| `reactiveHighlights.enableBold` | `false` | Make reactive variables **bold**. |
+| `reactiveHighlights.enableItalic` | `false` | Make reactive variables *italic*. |
+| `reactiveHighlights.enableUnderline` | `false` | Add an underline to reactive variables. |
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## How it works
 
-## Requirements
+The extension analyzes variable identifiers in your active document. It basically asks the language server: *"Hey, what is the type of this variable?"*. If the type matches a known reactive pattern (like `WritableSignal<number>`), it gets highlighted.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+This means it works in complex scenarios:
 
-## Extension Settings
+```typescript
+// Angular Example
+class MyComponent {
+  count = signal(0); // Highlighted
+  
+  double = computed(() => this.count() * 2); // Highlighted
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+  update(val: WritableSignal<number>) { // Highlighted (Argument)
+     val.set(10); 
+  }
+}
+```
 
-For example:
+```typescript
+// Vue Example
+const count = ref(0); // Highlighted
+const derived = computed(() => count.value * 2); // Highlighted
 
-This extension contributes the following settings:
+function useFeature(param: Ref<string>) { // Highlighted
+    console.log(param.value);
+}
+```
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## Performance
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+To maintain editor responsiveness, the extension implements:
+*   **Incremental Updates**: Only modified lines are re-scanned during editing.
+*   **Caching**: Highlights are cached to allow instant switching between active tabs.
+*   **Batching**: Requests to the language server are batched to prevent blocking the UI thread.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+*   Initial release supporting Angular Signals and Vue Refs.
+*   Configurable colors and styles.
+*   Smart type-based detection.
