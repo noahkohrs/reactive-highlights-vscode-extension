@@ -9,5 +9,5 @@ export interface ReactiveStrategy {
     /**
      * returns the ranges that should be highlighted as "Reactive"
      */
-    getRanges(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.Range[]>;
+    getRanges(document: vscode.TextDocument, token: vscode.CancellationToken, changes?: vscode.TextDocumentContentChangeEvent[]): Promise<vscode.Range[]>;
 }

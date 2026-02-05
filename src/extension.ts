@@ -41,21 +41,21 @@ export function activate(context: vscode.ExtensionContext) {
 
 	vscode.workspace.onDidChangeTextDocument(event => {
 		if (activeEditor && event.document === activeEditor.document) {
-			triggerUpdateDecorations(true);
+			triggerUpdateDecorations(true, event.contentChanges);
 		}
 	}, null, context.subscriptions);
 }
 
 let timeout: NodeJS.Timeout | undefined = undefined;
-function triggerUpdateDecorations(throttle = false) {
+function triggerUpdateDecorations(throttle = false, changes?: readonly vscode.TextDocumentContentChangeEvent[]) {
 	if (timeout) {
 		clearTimeout(timeout);
 		timeout = undefined;
 	}
 	if (throttle) {
-		timeout = setTimeout(updateDecorations, 500);
+		timeout = setTimeout(() => updateDecorations(changes), 100);
 	} else {
-		updateDecorations();
+		updateDecorations(changes);
 	}
 }
 
@@ -86,7 +86,7 @@ function updateDecorationType() {
 
 let activeUpdateTokenSource: vscode.CancellationTokenSource | undefined;
 
-async function updateDecorations() {
+async function updateDecorations(changes?: readonly vscode.TextDocumentContentChangeEvent[]) {
 	if (!activeEditor) {
 		return;
 	}
@@ -110,7 +110,7 @@ async function updateDecorations() {
 	
 	try {
         const promiseResults = await Promise.allSettled(
-            applicableStrategies.map(s => s.getRanges(document, token))
+            applicableStrategies.map(s => s.getRanges(document, token, changes ? [...changes] : undefined))
         );
 
         if (token.isCancellationRequested) {
