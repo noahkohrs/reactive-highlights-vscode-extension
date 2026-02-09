@@ -1,6 +1,6 @@
 # Reactive Highlights for Angular Signals & Vue Refs
 
-![Demo](docs/demo.gif)
+![Demo](images/demo.gif)
 
 **Make your reactive state pop!**
 

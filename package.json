@@ -2,7 +2,8 @@
   "name": "reactive-highlights",
   "displayName": "Reactive Highlights (Angular Signals / Vue.js Refs)",
   "description": "This extension highlights Angular Signals and Vue.js references in another color than the rest of the code to ensure readability throughout the code and make the reactive contexts obvious to see.",
-  "version": "1.1.0",
+  "version": "1.1.3",
+  "icon": "images/icon.png",
   "publisher": "noahkohrs",
   "repository": {
     "type": "git",
@@ -18,8 +19,11 @@
   "keywords": [
     "angular",
     "vue",
+    "vue.js",
     "signals",
+    "signal",
     "refs",
+    "ref",
     "reactive",
     "highlight",
     "visualization"
