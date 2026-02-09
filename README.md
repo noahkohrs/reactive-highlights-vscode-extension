@@ -1,5 +1,7 @@
 # Reactive Highlights for Angular Signals & Vue Refs
 
+![Demo](docs/demo.gif)
+
 **Make your reactive state pop!**
 
 Reactive Highlights is a VS Code extension designed to instantly identify "Reactive" variables in your code. Whether you are using **Angular Signals** or **Vue.js Refs**, this extension "digs" into the type definitions of your variables and highlights them, ensuring you never miss a reactive dependency again.
