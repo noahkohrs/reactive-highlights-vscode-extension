@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.1.0] - 2026-02-09
+
+### Added
+- **Configuration**: Added `reactiveHighlights.debounceTime` setting to control the delay before highlights are updated. Default is 75ms.
+
+### Changed
+- **Refactoring**: Major refactor of the extension architecture. Logic moved from `extension.ts` to a dedicated `HighlightManager`.
+- **Performance**: Improved handling of rapid edits. Fixed a race condition where some changes could be missed during debouncing.
+
 ## [1.0.0] - 2026-02-05
 
 ### Added

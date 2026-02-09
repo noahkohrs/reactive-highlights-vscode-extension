@@ -17,7 +17,8 @@ export abstract class BaseTypeStrategy implements ReactiveStrategy {
         let dirtyRanges: vscode.Range[] = [];
 
         // CASE 1: Full Scan needed (No cache or no changes provided)
-        if (!cached || !changes || (cached.version !== document.version - 1 && cached.version !== document.version)) {
+        // We trust that if changes are provided, they cover the gap between cached version and current version
+        if (!cached || !changes) {
             console.log(`[${this.constructor.name}] Full Scan for ${key}`);
             dirtyRanges = [new vscode.Range(0, 0, document.lineCount, 0)];
         } 
@@ -35,10 +36,13 @@ export abstract class BaseTypeStrategy implements ReactiveStrategy {
                 const endLine = startLine + linesAdded;
                 
                 dirtyRanges.push(new vscode.Range(
-                    Math.max(0, startLine - 1), 0,
+                    Math.max(0, startLine - 2), 0,
                     Math.min(document.lineCount, endLine + 2), 0
                 ));
             }
+
+
+            rangesToKeep = rangesToKeep.filter(r => !dirtyRanges.some(dirty => dirty.intersection(r)));
         }
         
         // 3. Scan identifiers in dirty regions
@@ -69,7 +73,7 @@ export abstract class BaseTypeStrategy implements ReactiveStrategy {
                     nextRanges.push(r);
                 }
                 // If range is strictly after change (and not touching), shift it.
-                else if (r.start.isAfter(change.range.end)) {
+                else if (r.start.isAfter(change.range.end) || r.start.isEqual(change.range.end)) {
                     if (linesDelta !== 0) {
                         nextRanges.push(new vscode.Range(
                             r.start.line + linesDelta, r.start.character,

@@ -23,6 +23,7 @@ Customize the look and feel of your reactive variables in VS Code settings (`Ctr
 | `reactiveHighlights.enableBold` | `false` | Make reactive variables **bold**. |
 | `reactiveHighlights.enableItalic` | `false` | Make reactive variables *italic*. |
 | `reactiveHighlights.enableUnderline` | `false` | Add an underline to reactive variables. |
+| `reactiveHighlights.debounceTime` | `75` | Delay in ms before updating highlights. |
 
 ## How it works
 

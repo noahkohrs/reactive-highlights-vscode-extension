@@ -1,0 +1,4 @@
+- Bump the version (semantic versionning)
+- Update README (if needed)
+- Update CHANGELOG with new version and changes
+- Run `vsce publish`

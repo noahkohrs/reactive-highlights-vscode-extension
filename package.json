@@ -2,7 +2,7 @@
   "name": "reactive-highlights",
   "displayName": "Reactive Highlights (Angular Signals / Vue.js Refs)",
   "description": "This extension highlights Angular Signals and Vue.js references in another color than the rest of the code to ensure readability throughout the code and make the reactive contexts obvious to see.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "noahkohrs",
   "repository": {
     "type": "git",
@@ -63,6 +63,11 @@
           "type": "boolean",
           "default": false,
           "description": "Enable italic text for reactive variables."
+        },
+        "reactiveHighlights.debounceTime": {
+          "type": "number",
+          "default": 75,
+          "description": "The debounce time in milliseconds for updating highlights. Lower values may improve responsiveness but can increase CPU usage."
         }
       }
     }
