@@ -124,6 +124,7 @@ export abstract class BaseTypeStrategy implements ReactiveStrategy {
             while ((match = identifierPattern.exec(slice))) {
                 const name = match[0];
                 if (ignored.has(name)) {continue;}
+                console.log(`[${this.constructor.name}] Found identifier candidate: ${name} at offset ${offset + match.index}`);
 
                 const matchOffset = offset + match.index;
                 const startPos = document.positionAt(matchOffset);

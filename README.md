@@ -1,6 +1,11 @@
-# Reactive Highlights for Angular Signals & Vue Refs
+![Reactive Highlights](images/github-header-banner.png)
+
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Vue](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)
+![Version](https://img.shields.io/vscode-marketplace/v/noahkohrs.reactive-highlights?style=for-the-badge)
 
 ![Demo](images/demo.gif)
+
 
 **Make your reactive state pop!**
 
